@@ -1,0 +1,8 @@
+{
+  "session_id": "fixture-session",
+  "tick": 46,
+  "ssg": "zone B: 20m ahead, contested\nself: health 80, in cover, weapon ready\nplayer: 5m right, health 25, under fire\nenemy E1: 18m ahead, behind crates, LOS to player: yes, threatening\ncover C2: 4m left, protects from E1",
+  "digest": "recent: player took heavy damage 5s ago",
+  "command": {"text": "keep them off me while I patch up", "age_s": 1},
+  "feasible_skills": ["Hold", "Advance", "Engage", "TakeCover", "Suppress", "Support", "Regroup", "Retreat"]
+}

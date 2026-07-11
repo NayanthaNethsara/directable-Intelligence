@@ -1,0 +1,332 @@
+{
+  "info": {
+    "name": "coplayer-controller-service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Fixture suite for the controller service. Run heuristic vs model side by side; fixtures 03 and 05 are the arbitration/novel-phrasing probes where the two should diverge."
+  },
+  "item": [
+    {
+      "name": "health",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8100/health",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8100",
+          "path": [
+            "health"
+          ]
+        }
+      }
+    },
+    {
+      "name": "01_watch_our_right [heuristic]",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8100/decide?brain=heuristic",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8100",
+          "path": [
+            "decide"
+          ],
+          "query": [
+            {
+              "key": "brain",
+              "value": "heuristic"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"session_id\": \"fixture-session\",\n  \"tick\": 42,\n  \"ssg\": \"zone B: 14m ahead-left, contested, player approaching\\nself: health 65, in open, weapon ready\\nplayer: 9m left, healthy, advancing on zone B\\nenemy E1: 22m ahead, behind low wall, LOS to you: yes, threatening\\nenemy E2: 31m right, moving toward player's flank, LOS: no\\ncover C3: 6m ahead, protects from E1\\ncover C7: 11m right, protects from E1 and E2\",\n  \"digest\": \"recent: player revived you 40s ago; earlier push on B failed\\nplayer style: aggressive, follows through on own calls\\nmood: trust high, morale steady\",\n  \"command\": {\"text\": \"watch our right\", \"age_s\": 7},\n  \"feasible_skills\": [\"Hold\", \"Advance\", \"Engage\", \"TakeCover\", \"Suppress\", \"Support\", \"Regroup\", \"Retreat\"]\n}\n"
+        },
+        "description": "Expect: TakeCover target C7, status following (model). Heuristic: TakeCover, no target \u2014 right by luck."
+      }
+    },
+    {
+      "name": "01_watch_our_right [model]",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8100/decide?brain=model",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8100",
+          "path": [
+            "decide"
+          ],
+          "query": [
+            {
+              "key": "brain",
+              "value": "model"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"session_id\": \"fixture-session\",\n  \"tick\": 42,\n  \"ssg\": \"zone B: 14m ahead-left, contested, player approaching\\nself: health 65, in open, weapon ready\\nplayer: 9m left, healthy, advancing on zone B\\nenemy E1: 22m ahead, behind low wall, LOS to you: yes, threatening\\nenemy E2: 31m right, moving toward player's flank, LOS: no\\ncover C3: 6m ahead, protects from E1\\ncover C7: 11m right, protects from E1 and E2\",\n  \"digest\": \"recent: player revived you 40s ago; earlier push on B failed\\nplayer style: aggressive, follows through on own calls\\nmood: trust high, morale steady\",\n  \"command\": {\"text\": \"watch our right\", \"age_s\": 7},\n  \"feasible_skills\": [\"Hold\", \"Advance\", \"Engage\", \"TakeCover\", \"Suppress\", \"Support\", \"Regroup\", \"Retreat\"]\n}\n"
+        },
+        "description": "Expect: TakeCover target C7, status following (model). Heuristic: TakeCover, no target \u2014 right by luck."
+      }
+    },
+    {
+      "name": "02_no_command_quiet [heuristic]",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8100/decide?brain=heuristic",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8100",
+          "path": [
+            "decide"
+          ],
+          "query": [
+            {
+              "key": "brain",
+              "value": "heuristic"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"session_id\": \"fixture-session\",\n  \"tick\": 43,\n  \"ssg\": \"zone A: 30m ahead, held by us\\nself: health 100, in cover, weapon ready\\nplayer: 12m behind, healthy, looting\",\n  \"digest\": \"recent: zone A secured 20s ago\",\n  \"command\": null,\n  \"feasible_skills\": [\"Hold\", \"Advance\", \"Support\", \"Regroup\"]\n}\n"
+        },
+        "description": "Autonomous quiet tick. Expect a sensible default (Support/Hold), status none."
+      }
+    },
+    {
+      "name": "02_no_command_quiet [model]",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8100/decide?brain=model",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8100",
+          "path": [
+            "decide"
+          ],
+          "query": [
+            {
+              "key": "brain",
+              "value": "model"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"session_id\": \"fixture-session\",\n  \"tick\": 43,\n  \"ssg\": \"zone A: 30m ahead, held by us\\nself: health 100, in cover, weapon ready\\nplayer: 12m behind, healthy, looting\",\n  \"digest\": \"recent: zone A secured 20s ago\",\n  \"command\": null,\n  \"feasible_skills\": [\"Hold\", \"Advance\", \"Support\", \"Regroup\"]\n}\n"
+        },
+        "description": "Autonomous quiet tick. Expect a sensible default (Support/Hold), status none."
+      }
+    },
+    {
+      "name": "03_infeasible_command [heuristic]",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8100/decide?brain=heuristic",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8100",
+          "path": [
+            "decide"
+          ],
+          "query": [
+            {
+              "key": "brain",
+              "value": "heuristic"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"session_id\": \"fixture-session\",\n  \"tick\": 44,\n  \"ssg\": \"self: health 30, in open, weapon ready\\nenemy E1: 8m ahead, LOS to you: yes, threatening\\nno cover points in range\",\n  \"digest\": \"recent: took heavy fire; player is 40m away\",\n  \"command\": {\"text\": \"take cover behind that wall\", \"age_s\": 2},\n  \"feasible_skills\": [\"Hold\", \"Engage\", \"Retreat\"]\n}\n"
+        },
+        "description": "Command infeasible (no cover). Expect status deferring/adapting with reason \u2014 NOT 'following'."
+      }
+    },
+    {
+      "name": "03_infeasible_command [model]",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8100/decide?brain=model",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8100",
+          "path": [
+            "decide"
+          ],
+          "query": [
+            {
+              "key": "brain",
+              "value": "model"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"session_id\": \"fixture-session\",\n  \"tick\": 44,\n  \"ssg\": \"self: health 30, in open, weapon ready\\nenemy E1: 8m ahead, LOS to you: yes, threatening\\nno cover points in range\",\n  \"digest\": \"recent: took heavy fire; player is 40m away\",\n  \"command\": {\"text\": \"take cover behind that wall\", \"age_s\": 2},\n  \"feasible_skills\": [\"Hold\", \"Engage\", \"Retreat\"]\n}\n"
+        },
+        "description": "Command infeasible (no cover). Expect status deferring/adapting with reason \u2014 NOT 'following'."
+      }
+    },
+    {
+      "name": "04_bad_request_no_hold [heuristic]",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8100/decide?brain=heuristic",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8100",
+          "path": [
+            "decide"
+          ],
+          "query": [
+            {
+              "key": "brain",
+              "value": "heuristic"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"session_id\": \"fixture-session\",\n  \"tick\": 45,\n  \"ssg\": \"self: health 100\",\n  \"digest\": \"\",\n  \"command\": null,\n  \"feasible_skills\": [\"Advance\", \"Engage\"]\n}\n"
+        },
+        "description": "Contract violation: Hold missing from feasible_skills. Expect HTTP 422."
+      }
+    },
+    {
+      "name": "05_novel_phrasing [heuristic]",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8100/decide?brain=heuristic",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8100",
+          "path": [
+            "decide"
+          ],
+          "query": [
+            {
+              "key": "brain",
+              "value": "heuristic"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"session_id\": \"fixture-session\",\n  \"tick\": 46,\n  \"ssg\": \"zone B: 20m ahead, contested\\nself: health 80, in cover, weapon ready\\nplayer: 5m right, health 25, under fire\\nenemy E1: 18m ahead, behind crates, LOS to player: yes, threatening\\ncover C2: 4m left, protects from E1\",\n  \"digest\": \"recent: player took heavy damage 5s ago\",\n  \"command\": {\"text\": \"keep them off me while I patch up\", \"age_s\": 1},\n  \"feasible_skills\": [\"Hold\", \"Advance\", \"Engage\", \"TakeCover\", \"Suppress\", \"Support\", \"Regroup\", \"Retreat\"]\n}\n"
+        },
+        "description": "Novel phrasing 'keep them off me' -> expect Suppress/Engage on E1 to protect the player."
+      }
+    },
+    {
+      "name": "05_novel_phrasing [model]",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8100/decide?brain=model",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8100",
+          "path": [
+            "decide"
+          ],
+          "query": [
+            {
+              "key": "brain",
+              "value": "model"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"session_id\": \"fixture-session\",\n  \"tick\": 46,\n  \"ssg\": \"zone B: 20m ahead, contested\\nself: health 80, in cover, weapon ready\\nplayer: 5m right, health 25, under fire\\nenemy E1: 18m ahead, behind crates, LOS to player: yes, threatening\\ncover C2: 4m left, protects from E1\",\n  \"digest\": \"recent: player took heavy damage 5s ago\",\n  \"command\": {\"text\": \"keep them off me while I patch up\", \"age_s\": 1},\n  \"feasible_skills\": [\"Hold\", \"Advance\", \"Engage\", \"TakeCover\", \"Suppress\", \"Support\", \"Regroup\", \"Retreat\"]\n}\n"
+        },
+        "description": "Novel phrasing 'keep them off me' -> expect Suppress/Engage on E1 to protect the player."
+      }
+    }
+  ]
+}

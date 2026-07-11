@@ -1,0 +1,8 @@
+{
+  "session_id": "fixture-session",
+  "tick": 42,
+  "ssg": "zone B: 14m ahead-left, contested, player approaching\nself: health 65, in open, weapon ready\nplayer: 9m left, healthy, advancing on zone B\nenemy E1: 22m ahead, behind low wall, LOS to you: yes, threatening\nenemy E2: 31m right, moving toward player's flank, LOS: no\ncover C3: 6m ahead, protects from E1\ncover C7: 11m right, protects from E1 and E2",
+  "digest": "recent: player revived you 40s ago; earlier push on B failed\nplayer style: aggressive, follows through on own calls\nmood: trust high, morale steady",
+  "command": {"text": "watch our right", "age_s": 7},
+  "feasible_skills": ["Hold", "Advance", "Engage", "TakeCover", "Suppress", "Support", "Regroup", "Retreat"]
+}

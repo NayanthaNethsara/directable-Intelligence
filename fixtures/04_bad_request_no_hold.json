@@ -1,0 +1,8 @@
+{
+  "session_id": "fixture-session",
+  "tick": 45,
+  "ssg": "self: health 100",
+  "digest": "",
+  "command": null,
+  "feasible_skills": ["Advance", "Engage"]
+}

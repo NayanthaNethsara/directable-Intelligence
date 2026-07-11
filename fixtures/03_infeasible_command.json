@@ -1,0 +1,8 @@
+{
+  "session_id": "fixture-session",
+  "tick": 44,
+  "ssg": "self: health 30, in open, weapon ready\nenemy E1: 8m ahead, LOS to you: yes, threatening\nno cover points in range",
+  "digest": "recent: took heavy fire; player is 40m away",
+  "command": {"text": "take cover behind that wall", "age_s": 2},
+  "feasible_skills": ["Hold", "Engage", "Retreat"]
+}
