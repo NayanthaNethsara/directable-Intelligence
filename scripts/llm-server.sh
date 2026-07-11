@@ -20,7 +20,7 @@ ARGS=(
   --ctx-size 4096
   --n-gpu-layers 99
   --jinja                 # use the model's chat template; needed for json_schema output
-  --no-webui              # API only, no browser UI
+  --no-ui                 # API only, no browser UI
 )
 
 if [[ -f "$MODEL" ]]; then
