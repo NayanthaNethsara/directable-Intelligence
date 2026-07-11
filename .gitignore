@@ -221,3 +221,4 @@ __marimo__/
 *.gguf
 models/
 logs/
+.DS_Store
