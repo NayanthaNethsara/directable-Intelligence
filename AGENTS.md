@@ -9,12 +9,14 @@ instructions — do not duplicate them here.
 
 ```
 controller_service/
-  main.py        # FastAPI app: /decide, /health, validate-or-repair, JSONL logging
+  main.py        # FastAPI app: /decide, /skills, /health, validate-or-repair, JSONL logging
   schema.py      # external contract (request/response models) — Unity depends on this
   config.py      # pydantic-settings; the ONLY place env/config enters the process
+  skills.py      # SkillDef + SkillRegistry, loaded from skills.json at import
+  skills.json    # THE skill catalog: name, description, ack, heuristic triggers
   brains/
     base.py      # Brain interface: decide(req) -> raw JSON string
-    heuristic.py # deterministic rule ladder, zero deps, baseline + fallback
+    heuristic.py # generic priority walk over the catalog's triggers, zero deps
     model.py     # local LLM via OpenAI-compatible API, json_schema output
 fixtures/        # sample /decide payloads; one file per scenario
 scripts/         # llm-server.sh (llama.cpp launcher)
@@ -36,6 +38,23 @@ models/, logs/   # gitignored (GGUF weights, decision JSONL)
   directly.
 - **Every decision is logged to JSONL** with latency, repair flag, and raw
   output. New response fields should be added to `log_decision` too.
+
+## Adding a skill
+
+All skill knowledge on the service side lives in `controller_service/skills.json`
+(loaded and validated by `skills.py`). Never hardcode skill names, descriptions,
+or acks anywhere else.
+
+1. Add an entry to `skills.json`: `name`, `description` (what the LLM sees in
+   its menu), `ack` (default in-character line). Optionally `priority` +
+   `triggers` if the heuristic brain should be able to pick it: triggers are
+   groups of SSG substrings — every group must match, a group matches if ANY
+   of its entries appears in the lowercased SSG. No triggers = model-only.
+2. Implement a `SkillWorker` in the Unity repo
+   (`Assets/Scripts/DirectableAI/Skills/Workers/`) with the same `SkillName`,
+   and register it in `SkillExecutor.BuildRegistry`. Unity decides feasibility
+   per tick; the service only ever picks from the menu Unity sends.
+3. Check `GET /skills` to confirm the catalog the service loaded.
 
 ## Adding a brain
 

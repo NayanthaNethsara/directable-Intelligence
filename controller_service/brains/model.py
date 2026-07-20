@@ -2,20 +2,10 @@ from openai import OpenAI
 
 from ..config import settings
 from ..schema import ControllerRequest, COMMAND_STATUSES
+from ..skills import registry
 from .base import Brain
 
-SKILL_CATALOG = {
-    "Hold":      "stay at current position and stay alert",
-    "Advance":   "move toward the current objective",
-    "Engage":    "attack a visible enemy target",
-    "TakeCover": "move behind a cover point that blocks a threat",
-    "Suppress":  "fire at an enemy position to pin them down",
-    "Support":   "stay close to the player and assist them",
-    "Regroup":   "move back to the player's position",
-    "Retreat":   "fall back away from danger",
-}
-
-SYSTEM_PROMPT_VERSION = "v0-dev" 
+SYSTEM_PROMPT_VERSION = "v0-dev"
 
 SYSTEM_PROMPT = """You are the tactical decision module of an NPC teammate in a \
 cooperative game. Each turn you receive a spatial scene description, a short \
@@ -55,7 +45,7 @@ def build_user_message(req: ControllerRequest) -> str:
         parts.append("command: none")
 
     menu = "\n".join(
-        f"- {s} — {SKILL_CATALOG.get(s, 'no description')}"
+        f"- {s} — {registry.describe(s)}"
         for s in req.feasible_skills
     )
     parts.append(f"AVAILABLE SKILLS this turn:\n{menu}")

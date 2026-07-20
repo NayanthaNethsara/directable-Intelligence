@@ -24,6 +24,7 @@ class Settings(BaseSettings):
 
     default_brain: str = "heuristic"
     log_dir: Path = Path("logs")
+    skills_file: Path = Path(__file__).parent / "skills.json"
 
 
 settings = Settings()

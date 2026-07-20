@@ -1,39 +1,34 @@
 import json
 
 from ..schema import ControllerRequest, ALWAYS_FEASIBLE_SKILL
+from ..skills import registry
 from .base import Brain
 
 
 class HeuristicBrain(Brain):
+    """Deterministic baseline: walk the catalog by priority and take the first
+    feasible skill whose triggers match the SSG. All skill knowledge lives in
+    skills.json; this class is only the walk."""
+
     name = "heuristic"
 
     def decide(self, req: ControllerRequest) -> str:
-        skills = req.feasible_skills
         ssg = req.ssg.lower()
 
-        threatened = "threatening" in ssg or "los to you: yes" in ssg
-        has_cover = "cover c" in ssg
-
-        # Priority ladder. Intentionally simple and readable.
-        if threatened and has_cover and "TakeCover" in skills:
-            skill, ack = "TakeCover", "Taking cover."
-        elif threatened and "Engage" in skills:
-            skill, ack = "Engage", "Engaging."
-        elif "contested" in ssg and "Advance" in skills:
-            skill, ack = "Advance", "Pushing up."
-        elif "Support" in skills and "player" in ssg:
-            skill, ack = "Support", "Sticking with you."
-        else:
-            skill, ack = ALWAYS_FEASIBLE_SKILL, "Holding position."
+        chosen = registry.hold
+        for skill in registry.by_priority():
+            if skill.name in req.feasible_skills and skill.matches(ssg):
+                chosen = skill
+                break
 
         command_status = "none"
         if req.command is not None:
-            command_status = "following" if skill != ALWAYS_FEASIBLE_SKILL else "deferring"
+            command_status = "following" if chosen.name != ALWAYS_FEASIBLE_SKILL else "deferring"
 
         return json.dumps({
-            "skill": skill,
+            "skill": chosen.name,
             "target": "",
-            "ack": ack,
+            "ack": chosen.ack,
             "command_status": command_status,
             "proposal": "",
         })

@@ -1,0 +1,52 @@
+{
+  "skills": [
+    {
+      "name": "Hold",
+      "description": "stay at current position and stay alert",
+      "ack": "Holding position."
+    },
+    {
+      "name": "TakeCover",
+      "description": "move behind a cover point that blocks a threat",
+      "ack": "Taking cover.",
+      "priority": 100,
+      "triggers": [["threatening", "los to you: yes"], ["cover c"]]
+    },
+    {
+      "name": "Engage",
+      "description": "attack a visible enemy target",
+      "ack": "Engaging.",
+      "priority": 90,
+      "triggers": [["threatening", "los to you: yes"]]
+    },
+    {
+      "name": "Advance",
+      "description": "move toward the current objective",
+      "ack": "Pushing up.",
+      "priority": 80,
+      "triggers": [["contested"]]
+    },
+    {
+      "name": "Support",
+      "description": "stay close to the player and assist them",
+      "ack": "Sticking with you.",
+      "priority": 70,
+      "triggers": [["player"]]
+    },
+    {
+      "name": "Suppress",
+      "description": "fire at an enemy position to pin them down",
+      "ack": "Suppressing."
+    },
+    {
+      "name": "Regroup",
+      "description": "move back to the player's position",
+      "ack": "Coming to you."
+    },
+    {
+      "name": "Retreat",
+      "description": "fall back away from danger",
+      "ack": "Falling back."
+    }
+  ]
+}

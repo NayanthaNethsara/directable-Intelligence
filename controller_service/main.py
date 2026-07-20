@@ -10,6 +10,7 @@ from .schema import (
     ControllerRequest, ControllerResponse, Decision,
     ALWAYS_FEASIBLE_SKILL, COMMAND_STATUSES,
 )
+from .skills import registry
 from .brains.base import Brain
 from .brains.heuristic import HeuristicBrain
 
@@ -72,7 +73,7 @@ def validate_or_repair(raw: str, req: ControllerRequest) -> tuple[Decision, bool
     fallback = Decision(
         skill=ALWAYS_FEASIBLE_SKILL,
         target="",
-        ack="Holding position.",
+        ack=registry.hold.ack,
         # A pending command we failed to process is NOT consumed: 'deferring'
         # retains it (schema rule), so the next tick gets another chance.
         command_status="deferring" if req.command else "none",
@@ -130,6 +131,17 @@ def decide(req: ControllerRequest, brain: str = DEFAULT_BRAIN) -> ControllerResp
     return resp
 
 
+@app.get("/skills")
+def skills() -> list[dict]:
+    """The full skill catalog, as the service understands it."""
+    return [s.model_dump() for s in registry.all()]
+
+
 @app.get("/health")
 def health() -> dict:
-    return {"ok": True, "brains": list(BRAINS), "log": str(LOG_PATH)}
+    return {
+        "ok": True,
+        "brains": list(BRAINS),
+        "skills": [s.name for s in registry.all()],
+        "log": str(LOG_PATH),
+    }
