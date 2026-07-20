@@ -94,6 +94,9 @@ or acks anywhere else.
 
 ## Related repo
 
-The Unity client lives at `../directable-Intelligence-unity`. Inside it,
-`Assets/UnityTechnologies` is third-party and read-only — never delete or
-modify files there.
+The Unity client lives at
+`/Users/nayanthanethsara/Documents/Github/directable-Intelligence-unity`
+(`../directable-Intelligence-unity`) and has its own `AGENTS.md` covering C#
+style, the game systems and the Unity MCP workflow — read it before working
+there. Inside it, `Assets/UnityTechnologies` is third-party and read-only —
+never delete or modify files there.
