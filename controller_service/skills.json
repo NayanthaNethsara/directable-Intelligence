@@ -47,6 +47,26 @@
       "name": "Retreat",
       "description": "fall back away from danger",
       "ack": "Falling back."
+    },
+    {
+      "name": "GatherWood",
+      "description": "walk to a wood deposit and collect wood",
+      "ack": "Gathering wood."
+    },
+    {
+      "name": "MineStone",
+      "description": "walk to a stone deposit and mine stone",
+      "ack": "Mining stone."
+    },
+    {
+      "name": "Build",
+      "description": "help finish a blueprint the player already placed by feeding it resources",
+      "ack": "Helping build."
+    },
+    {
+      "name": "Repair",
+      "description": "feed resources into a damaged wall to patch it up",
+      "ack": "Repairing."
     }
   ]
 }
