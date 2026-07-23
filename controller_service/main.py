@@ -1,4 +1,5 @@
 import json
+import re
 import time
 import uuid
 
@@ -6,11 +7,13 @@ from fastapi import FastAPI, HTTPException
 from pydantic import ValidationError
 
 from .config import settings
+from .history import history
 from .schema import (
     ControllerRequest, ControllerResponse, Decision,
     ALWAYS_FEASIBLE_SKILL, COMMAND_STATUSES,
 )
 from .skills import registry
+from .worldstate import parse_ssg
 from .brains.base import Brain
 from .brains.heuristic import HeuristicBrain
 
@@ -95,7 +98,24 @@ def validate_or_repair(raw: str, req: ControllerRequest) -> tuple[Decision, bool
     if req.command is None and d.command_status != "none":
         d.command_status = "none"               # can't have a status about a command that isn't there
         repaired = True
+    if d.target and not _target_is_usable(d.target, d.skill, req.ssg):
+        # An id the skill cannot resolve — invented, or the wrong kind of
+        # object (Build aimed at a deposit) — makes the worker silently idle
+        # in Unity. Blanking it falls back to "nearest valid object", so the
+        # turn still does something.
+        d.target = ""
+        repaired = True
     return d, repaired
+
+
+def _target_is_usable(target: str, skill: str, ssg: str) -> bool:
+    if not re.search(rf"\b{re.escape(target)}\b", ssg):
+        return False
+    s = registry.get(skill)
+    if s is None or not s.target_kinds:
+        return True
+    ids = parse_ssg(ssg).ids_by_kind()
+    return any(target in ids.get(kind, ()) for kind in s.target_kinds)
 
 
 # ---------------------------------------------------------------------------
@@ -118,6 +138,9 @@ def decide(req: ControllerRequest, brain: str = DEFAULT_BRAIN) -> ControllerResp
     latency_ms = (time.perf_counter() - t0) * 1000.0
 
     decision, repaired = validate_or_repair(raw, req)
+    # Recorded after the brain has already read the history, so a turn never
+    # sees its own decision — next turn does.
+    history.record(req.session_id, decision.skill)
 
     resp = ControllerResponse(
         decision=decision,

@@ -3,70 +3,95 @@
     {
       "name": "Hold",
       "description": "stay at current position and stay alert",
-      "ack": "Holding position."
+      "when": "nothing else on the ladder applies",
+      "avoid": "anything useful is available — Hold wastes the turn",
+      "ack": "Holding position.",
+      "priority": -10
     },
     {
       "name": "TakeCover",
-      "description": "move behind a cover point that blocks a threat",
+      "description": "put a wall between you and a threat, then watch it from there",
+      "when": "SITUATION lists cover and a threat is closing on you",
+      "avoid": "nothing is threatening you, or the threat is already in reach — hit it instead",
       "ack": "Taking cover.",
       "priority": 100,
-      "triggers": [["threatening", "los to you: yes"], ["cover c"]]
+      "triggers": [["threatening", "los to you: yes"], ["cover c"]],
+      "target_kinds": ["cover"]
     },
     {
       "name": "Engage",
-      "description": "attack a visible enemy target",
+      "description": "close on a hostile and attack it",
+      "when": "a threat is close or attacking you or the player",
+      "avoid": "you are badly hurt, or nothing hostile is in sight",
       "ack": "Engaging.",
       "priority": 90,
-      "triggers": [["threatening", "los to you: yes"]]
-    },
-    {
-      "name": "Advance",
-      "description": "move toward the current objective",
-      "ack": "Pushing up.",
-      "priority": 80,
-      "triggers": [["contested"]]
-    },
-    {
-      "name": "Support",
-      "description": "stay close to the player and assist them",
-      "ack": "Sticking with you.",
-      "priority": 70,
-      "triggers": [["player"]]
-    },
-    {
-      "name": "Suppress",
-      "description": "fire at an enemy position to pin them down",
-      "ack": "Suppressing."
-    },
-    {
-      "name": "Regroup",
-      "description": "move back to the player's position",
-      "ack": "Coming to you."
+      "triggers": [["threatening", "los to you: yes"]],
+      "target_kinds": ["threat"]
     },
     {
       "name": "Retreat",
-      "description": "fall back away from danger",
-      "ack": "Falling back."
+      "description": "break contact and fall back toward the player",
+      "when": "you are hurt or outnumbered and fighting on would lose you",
+      "avoid": "you can still fight, or cover is the better answer",
+      "ack": "Falling back.",
+      "priority": 85
     },
     {
-      "name": "GatherWood",
-      "description": "walk to a wood deposit and collect wood",
-      "ack": "Gathering wood."
+      "name": "Repair",
+      "description": "feed the resources you carry into a damaged wall to patch it up",
+      "when": "a damaged wall is listed and you carry the resource it costs",
+      "avoid": "no wall is damaged, or you carry nothing it can use",
+      "ack": "Repairing.",
+      "priority": 70,
+      "triggers": [["wall d"], ["carrying"]],
+      "target_kinds": ["wall"]
+    },
+    {
+      "name": "Build",
+      "description": "feed the resources you carry into a blueprint the player placed",
+      "when": "SITUATION says you CAN deposit right now — this is how carried resources become progress",
+      "avoid": "you carry nothing a blueprint needs",
+      "ack": "Helping build.",
+      "priority": 65,
+      "triggers": [["blueprint "], ["carrying"]],
+      "target_kinds": ["blueprint"]
     },
     {
       "name": "MineStone",
       "description": "walk to a stone deposit and mine stone",
-      "ack": "Mining stone."
+      "when": "stone is MISSING for a blueprint or repair",
+      "avoid": "SITUATION says you have ENOUGH stone, or wood is the missing resource",
+      "ack": "Mining stone.",
+      "priority": 55,
+      "triggers": [["stone t"]],
+      "target_kinds": ["stone"]
     },
     {
-      "name": "Build",
-      "description": "help finish a blueprint the player already placed by feeding it resources",
-      "ack": "Helping build."
+      "name": "GatherWood",
+      "description": "walk to a wood deposit and collect wood",
+      "when": "wood is MISSING for a blueprint or repair, or you carry nothing and there is nothing to spend yet",
+      "avoid": "SITUATION says you have ENOUGH wood, or stone is the missing resource — spend what you carry first",
+      "ack": "Gathering wood.",
+      "priority": 50,
+      "triggers": [["wood w"]],
+      "target_kinds": ["wood"]
     },
     {
-      "name": "Repair",
-      "description": "feed resources into a damaged wall to patch it up",
-      "ack": "Repairing."
+      "name": "Support",
+      "description": "escort the player and fight whatever attacks them",
+      "when": "the player is hurt or under attack and you have nothing more urgent",
+      "avoid": "resources are waiting to be spent or a threat is on you specifically",
+      "ack": "Sticking with you.",
+      "priority": 20,
+      "triggers": [["attacking player", "chasing player"]]
+    },
+    {
+      "name": "Regroup",
+      "description": "move back to the player's position and wait there",
+      "when": "you are far from the player and there is nothing to do out here",
+      "avoid": "you are already near the player, or resources and blueprints need attention",
+      "ack": "Coming to you.",
+      "priority": 10
     }
   ]
 }
