@@ -1,8 +1,8 @@
 {
   "session_id": "fixture-session",
   "tick": 46,
-  "ssg": "zone B: 20m ahead, contested\nself: health 80, in cover, weapon ready\nplayer: 5m right, health 25, under fire\nenemy E1: 18m ahead, behind crates, LOS to player: yes, threatening\ncover C2: 4m left, protects from E1",
+  "ssg": "self: health 80, carrying wood 4, stone 1\nplayer: 5m right, critical, holding\nzombie Z1: 18m ahead, healthy, attacking player, LOS to you: yes\ncover C2: 4m left, blocks Z1\nblueprint B4: 6m ahead-right, Wall [Wood 1/2, Stone 0/1]\nbed: 20m behind\nworld: day 3, monsters left 4",
   "digest": "recent: player took heavy damage 5s ago",
-  "command": {"text": "keep them off me while I patch up", "age_s": 1},
-  "feasible_skills": ["Hold", "Advance", "Engage", "TakeCover", "Suppress", "Support", "Regroup", "Retreat"]
+  "command": { "text": "keep them off me while I patch up", "age_s": 1 },
+  "feasible_skills": ["TakeCover", "Engage", "Retreat", "Build", "Support", "Regroup", "Hold"]
 }

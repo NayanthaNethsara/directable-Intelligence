@@ -1,8 +1,8 @@
 {
   "session_id": "fixture-session",
   "tick": 43,
-  "ssg": "zone A: 30m ahead, held by us\nself: health 100, in cover, weapon ready\nplayer: 12m behind, healthy, looting",
-  "digest": "recent: zone A secured 20s ago",
+  "ssg": "self: health 100\nplayer: 12m behind, healthy, holding\nwood W2: 7m ahead-left\nblueprint B1: 4m ahead, Wall [Wood 0/2, Stone 0/1]\nfarther stone (15m+): 2 total (nearest T1: 26m right)\nbed: 9m behind\nworld: day 2, monsters left 0",
+  "digest": "recent: last of the horde went down 20s ago",
   "command": null,
-  "feasible_skills": ["Hold", "Advance", "Support", "Regroup"]
+  "feasible_skills": ["MineStone", "GatherWood", "Support", "Regroup", "Hold"]
 }

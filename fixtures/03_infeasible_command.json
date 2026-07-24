@@ -1,8 +1,8 @@
 {
   "session_id": "fixture-session",
   "tick": 44,
-  "ssg": "self: health 30, in open, weapon ready\nenemy E1: 8m ahead, LOS to you: yes, threatening\nno cover points in range",
-  "digest": "recent: took heavy fire; player is 40m away",
-  "command": {"text": "take cover behind that wall", "age_s": 2},
-  "feasible_skills": ["Hold", "Engage", "Retreat"]
+  "ssg": "self: health 30, carrying wood 1\nplayer: 40m behind, healthy, moving\nzombie Z1: 8m ahead, healthy, chasing you, LOS to you: yes, threatening\nworld: day 3, monsters left 7",
+  "digest": "recent: you took heavy damage 4s ago; nothing has been built out here",
+  "command": { "text": "take cover behind that wall", "age_s": 2 },
+  "feasible_skills": ["Engage", "Retreat", "Hold"]
 }

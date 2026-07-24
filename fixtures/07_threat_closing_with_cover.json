@@ -1,0 +1,8 @@
+{
+  "session_id": "fixture-07",
+  "tick": 12,
+  "ssg": "self: health 55, carrying wood 3\nplayer: 8m ahead, hurt, moving\nzombie Z1: 5m ahead-right, healthy, chasing you, LOS to you: yes, threatening\nskeleton S1: 19m left, healthy, attacking player, LOS to you: yes\ncover C2: 4m left, blocks Z1\nwall D1: 6m left, Wall 40% · costs Wood\nblueprint B3: 7m ahead-left, Wall [Wood 1/2, Stone 0/1]\nfarther wood (15m+): 3 total (nearest W7: 22m behind)\nfarther stone (15m+): 1 total (nearest T2: 30m right)\nbed: 11m ahead\nworld: day 3, monsters left 6",
+  "digest": "recent: spotted zombie Z1 3s ago; wall D1 took damage 5s ago; you switched to GatherWood 9s ago",
+  "command": null,
+  "feasible_skills": ["TakeCover", "Engage", "Retreat", "Repair", "Build", "GatherWood", "Support", "Regroup", "Hold"]
+}

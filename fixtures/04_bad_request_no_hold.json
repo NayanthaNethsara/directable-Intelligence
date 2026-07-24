@@ -4,5 +4,5 @@
   "ssg": "self: health 100",
   "digest": "",
   "command": null,
-  "feasible_skills": ["Advance", "Engage"]
+  "feasible_skills": ["Engage", "GatherWood"]
 }

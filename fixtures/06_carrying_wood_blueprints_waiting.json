@@ -1,0 +1,8 @@
+{
+  "session_id": "fixture-06",
+  "tick": 37,
+  "ssg": "self: health 90, carrying wood 36\nplayer: 6m behind, healthy, holding\nwood W1: 2m ahead\nfarther deposits (15m+): 1 total (nearest T1: 23m right)\nblueprint B2: 5m ahead-left, Wall [Wood 0/2, Stone 0/1]\nblueprint B3: 5m ahead-left, Wall [Wood 0/2, Stone 0/1]\nblueprint B6: 5m ahead, Wall [Wood 0/2, Stone 0/1]\nblueprint B1: 5m left, Wall [Wood 0/2, Stone 0/1]\nblueprint B8: 6m ahead, Wall [Wood 0/2, Stone 0/1]\nfarther blueprints (15m+): 13 total (nearest B7: 6m ahead-right)\nbed: 13m behind-right\nworld: day 1, monsters left 0",
+  "digest": "recent: zombie Z2 went down 6s ago; spotted zombie Z2 7s ago; zombie Z1 went down 7s ago",
+  "command": null,
+  "feasible_skills": ["Hold", "Regroup", "GatherWood", "MineStone", "Build"]
+}
