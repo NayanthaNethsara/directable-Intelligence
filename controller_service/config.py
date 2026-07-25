@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     llm_api_key: str = "local"
     llm_model: str = "qwen3-0.6b"
     llm_temperature: float = 0.3
-    llm_max_tokens: int = 160
+    llm_max_tokens: int = 64
     llm_timeout_s: float = 30.0
 
     default_brain: str = "heuristic"
