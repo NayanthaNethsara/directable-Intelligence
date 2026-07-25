@@ -20,6 +20,7 @@ ARGS=(
   --ctx-size 2048
   --n-gpu-layers "${LLM_GPU_LAYERS:-24}"
   --threads "${LLM_THREADS:-4}"
+  --flash-attn auto
   --jinja                 # use the model's chat template; needed for json_schema output
   --no-ui                 # API only, no browser UI
 )
