@@ -18,7 +18,7 @@ ARGS=(
   --host 127.0.0.1
   --port "$PORT"
   --ctx-size 2048
-  --n-gpu-layers 99
+  --n-gpu-layers "${LLM_GPU_LAYERS:-24}"
   --threads "${LLM_THREADS:-4}"
   --jinja                 # use the model's chat template; needed for json_schema output
   --no-ui                 # API only, no browser UI
